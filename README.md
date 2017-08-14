@@ -1,0 +1,2 @@
+# BookManage
+早期做的一个基于SSH框架的图书管理系统，作为学习了Struts2，Spring4，Hibernate的初学者第一个开发的整合项目来说，应该具备的一些技能。
