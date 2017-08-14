@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="default" extends="struts-default">
+<!-- 
+	    <interceptors>  
+            <interceptor name="authority"  
+                class="org.tool.LoginInterceptor">  
+            </interceptor>     
+            
+            <interceptor-stack name="mydefault">  
+                <interceptor-ref name="defaultStack" />  
+                <interceptor-ref name="authority" />  
+            </interceptor-stack>  
+        </interceptors>  
+	  
+	<default-interceptor-ref name="authority"/>  	
+ -->
+		<!-- 用户登录 -->
+		<action name="login" class="org.action.LoginAction">
+			<result name="admin">/admin.jsp</result>
+			<result name="student">/student.jsp</result>
+			<result name="error">/error.jsp</result>
+			<result name="input">/login.jsp</result>
+		</action>
+		<!-- 查询已借图书 -->
+		<action name="selectBook" class="org.action.LendAction" method="selectAllLend">
+			<result name="success">/lend.jsp</result>
+			<result name="error">/error.jsp</result>
+		</action>
+		<!-- 查询已借图书 -->
+		<action name="selectBook2" class="org.action.LendAction" method="selectAllLend">
+			<result name="success">/return.jsp</result>
+			<result name="error">/error.jsp</result>
+		</action>
+		<!-- 借书 -->
+		<action name="lendBook" class="org.action.LendAction" method="lendBook">
+			<result name="success">/lend.jsp</result>
+			<result name="error">/error.jsp</result>
+		</action>
+		<!-- 还书 -->
+		<action name="returnBook" class="org.action.LendAction" method="returnBook">
+			<result name="success">/return.jsp</result>
+			<result name="error">/error.jsp</result>
+		</action>
+		<!-- 查询中管理图书 -->
+		<action name="book-*" 
+			class="org.action.BookAction"
+			method="{1}">
+			<result name="{1}">/book-{1}.jsp</result>
+			<result name="success">/query.jsp</result>	
+			<result name="error">/error.jsp</result>
+		</action>
+	    <!-- 查询图书 -->
+		<action name="queryBook" class="org.action.BookAction" method="queryBook">
+			<result name="aaa">/query.jsp</result>
+			<result name="error">/error.jsp</result>
+		</action>
+		<!-- 图书管理 -->
+		<action name="book" class="org.action.BookAction">
+			<result name="success">/bookmanage.jsp</result>
+			<result name="input">/bookmanage.jsp</result>
+			<result name="aaa">/query.jsp</result>
+			<result name="error">/error.jsp</result>
+		
+			<interceptor-ref name="defaultStack">
+				<param name="validation.excludeMethods">*</param>
+				<param name="validation.includeMethods">addBook,updateBook</param>
+			</interceptor-ref>
+		</action>
+		<!-- 读取照片 -->
+		<action name="getImage" class="org.action.BookAction" method="getImage">
+			<interceptor-ref name="defaultStack">
+				<param name="validation.excludeMethods">*</param>
+				<param name="validation.includeMethods">addBook,updateBook</param>
+			</interceptor-ref>
+		</action>
+		
+	</package>
+	<constant name="struts.i18n.encoding" value="utf-8"></constant>
+	<constant name="struts.multipart.saveDir" value="/tmp"></constant>
+	<constant name="struts.enable.DynamicMethodInvocation" value="true" />
+</struts>

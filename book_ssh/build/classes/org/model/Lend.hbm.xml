@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2017-4-26 16:44:15 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="org.model.Lend" table="lend">
+        <id name="readerId" type="java.lang.String">
+            <column name="readerId" />
+            <generator class="assigned"></generator>   
+        </id>
+        <property name="bookName" type="java.lang.String">
+            <column name="bookName" />
+        </property>
+        <property name="publisher" type="java.lang.String">
+            <column name="publisher" />
+        </property>
+        <property name="price" type="java.lang.Float">
+            <column name="price" />
+        </property>
+        <property name="ISBN" type="java.lang.String">
+            <column name="ISBN" />
+        </property>
+        <property name="lTime" type="java.lang.String">
+            <column name="lTime" />
+        </property>
+    </class>
+</hibernate-mapping>

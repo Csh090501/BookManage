@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2017-4-26 16:44:15 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="org.model.Student" table="student">
+        <id name="readerId" type="java.lang.String">
+            <column name="readerId" />
+            <generator class="assigned"></generator>   
+        </id>
+        <property name="name" type="java.lang.String">
+            <column name="name" />
+        </property>
+        <property name="spec" type="java.lang.String">
+            <column name="spec" />
+        </property>
+        <property name="sex" type="java.lang.Boolean">
+            <column name="sex" />
+        </property>
+        <property name="born" type="java.lang.String">
+            <column name="born" />
+        </property>
+        <property name="num" type="java.lang.Integer">
+            <column name="num" />
+        </property>
+        <property name="snum" type="java.lang.Integer">
+            <column name="snum" />
+        </property>
+        <property name="photo" type="java.lang.Byte">
+            <column name="photo" />
+        </property>
+       
+    </class>
+</hibernate-mapping>

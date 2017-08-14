@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd">
+
+	<!-- 导入资源文件 -->
+	<context:property-placeholder location="classpath:db.properties"/>
+   
+	<!-- 配置 数据源 -->
+<!-- 	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"> -->
+    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+        <property name="driverClassName" value="${jdbc.driverClass}"></property>
+		<property name="url" value="${jdbc.Url}"></property>
+		<property name="username" value="${jdbc.username}"></property>
+		<property name="password" value="${jdbc.password}"></property>
+<!-- 	    <property name="initialPoolSize" value="${jdbc.initPoolSize}"></property> -->
+<!-- 		<property name="maxPoolSize" value="${jdbc.maxPoolSize}"></property> -->
+	</bean>
+	
+	<!-- 配置 SessionFactory -->
+	<bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+		<property name="dataSource" ref="dataSource"></property>
+<!-- 		<property name="configLocation" value="classpath:hibernate.cfg.xml"></property> -->
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</prop>
+				<prop key="hibernate.show_sql">true</prop>
+				<prop key="hibernate.format_sql">true</prop>
+				<prop key="hibernate.hbm2ddl.auto">update</prop>
+			</props>
+		</property>
+		<property name="mappingLocations" value="classpath:org/model/*.hbm.xml"></property>
+	</bean>
+	
+	<!-- 配置 Spring 的声明式事务 -->
+	<!-- 1. 配置 hibernate 的事务管理器 -->
+	<bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+
+    <tx:annotation-driven transaction-manager="transactionManager" />
+
+    <bean id="book" class="org.model.Book"></bean>
+    <bean id="lend" class="org.model.Lend"></bean>
+   
+    <bean id="BaseDao" class="org.dao.BaseDao">
+        <property name="sessionFactory" ref="sessionFactory"></property>
+    </bean>
+    <bean id="loginDao" class="org.dao.LoginDao" parent="BaseDao"></bean>
+    <bean id="bookDao" class="org.dao.BookDao" parent="BaseDao"></bean>
+	<bean id="lendDao" class="org.dao.LendDao" parent="BaseDao"></bean>
+	<bean id="studentDao" class="org.dao.StudentDao" parent="BaseDao"></bean>
+	
+	<bean id="loginService" class="org.service.LoginService">
+		<property name="loginDao" ref="loginDao"></property>
+	</bean>
+	<bean id="bookService" class="org.service.BookService">
+	    <property name="bookDao" ref="bookDao"></property>
+	</bean>
+	<bean id="lendService" class="org.service.LendService">
+	    <property name="lendDao" ref="lendDao"></property>
+	</bean>
+	<bean id="studentService" class="org.service.StudentService">
+	    <property name="studentDao" ref="studentDao"></property>
+	</bean>
+	
+	<bean id="loginAction" class="org.action.LoginAction">
+	    <property name="loginService" ref="loginService"></property>
+	</bean>
+	<bean id="bookAction" class="org.action.BookAction">
+	    <property name="book" ref="book"></property>
+	    <property name="bookService" ref="bookService"></property>
+	    <property name="lendService" ref="lendService"></property>
+	</bean>
+	<bean id="lendAction" class="org.action.LendAction">	    
+	    <property name="lendService" ref="lendService"></property>
+	    <property name="studentService" ref="studentService"></property>
+	    <property name="bookService" ref="bookService"></property>
+	    <property name="lend" ref="lend"></property>
+	</bean>
+</beans>

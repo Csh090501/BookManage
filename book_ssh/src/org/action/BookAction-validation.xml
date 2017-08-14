@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE validators PUBLIC    
+"-//Apache Struts//XWork Validator 1.0.2//EN" 
+"http://struts.apache.org/dtds/xwork-validator-1.0.2.dtd">
+<validators>
+	<field name="book.ISBN">
+	<field-validator type="requiredstring">
+        <!-- 去空格 -->
+        <param name="trim">true</param>
+        	<message>ISBN不能为空！</message>
+        </field-validator>
+    </field>
+    <field name="book.bookName">
+    	<field-validator type="requiredstring">
+    	<param name="trim">true</param>
+    	<message>书名不能为空！</message>
+    </field-validator>
+    </field>
+    <field name="book.author">
+    <field-validator type="requiredstring">
+    	<param name="trim">true</param>
+    	<message>作者不能为空！</message>
+    </field-validator>
+    </field>
+    <field name="book.publisher">
+    <field-validator type="requiredstring">
+    	<param name="trim">true</param>
+    	<message>出版社不能为空！</message>
+    </field-validator>
+  </field>
+</validators>

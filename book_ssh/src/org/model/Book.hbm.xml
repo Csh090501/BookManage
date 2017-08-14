@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2017-4-26 16:44:15 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="org.model.Book" table="book">
+        <id name="ISBN" type="java.lang.String">
+            <column name="ISBN" />  
+            <generator class="assigned"></generator>    
+        </id>
+        <property name="bookName" type="java.lang.String">
+            <column name="bookName" />
+        </property>
+        <property name="author" type="java.lang.String">
+            <column name="author" />
+        </property>
+        <property name="publisher" type="java.lang.String">
+            <column name="publisher" />
+        </property>
+        <property name="price" type="java.lang.Float">
+            <column name="price" />
+        </property>
+        <property name="cnum" type="java.lang.Integer">
+            <column name="cnum" />
+        </property>
+        <property name="snum" type="java.lang.Integer">
+            <column name="snum" />
+        </property>
+        <property name="summary" type="java.lang.String">
+            <column name="summary" />
+        </property>
+        <property name="photo" type="java.lang.Byte">
+            <column name="photo" />
+        </property>
+    </class>
+</hibernate-mapping>
